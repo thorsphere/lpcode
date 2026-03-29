@@ -1,8 +1,8 @@
-module github.com/thorstenrie/lpcode
+module github.com/thorsphere/lpcode
 
-go 1.21.4
+go 1.26
 
 require (
-	github.com/thorstenrie/tserr v1.15.0
-	github.com/thorstenrie/tsfio v1.5.1
+	github.com/thorsphere/tserr v1.17.0
+	github.com/thorsphere/tsfio v1.7.0
 )

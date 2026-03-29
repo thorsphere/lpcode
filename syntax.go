@@ -1,6 +1,4 @@
-// Does not check for correct syntax or arguments
-//
-// Copyright (c) 2023 thorstenrie.
+// Copyright (c) 2023-2026 thorsphere.
 // All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
 // that can be found in the LICENSE file.
 package lpcode
@@ -10,10 +8,10 @@ import (
 	"fmt"       // fmt
 	"go/format" // format
 
-	"github.com/thorstenrie/tserr" // tserr
+	"github.com/thorsphere/tserr" // tserr
 )
 
-// Code contains the source code as string. The source code is amended by
+// Code contains the source code as string. The stored source code is amended by using
 // its methods. The source code can be retrieved with String and formatted
 // with Format.
 type Code struct {
@@ -112,15 +110,25 @@ func (code *Code) ParamEnd() *Code {
 	return code
 }
 
+// Func1Args contains the configuration for the generation of a function declaration with Func1.
 type Func1Args struct {
 	Name, Var, Type, Return string
 }
 
+// Func1 adds a function declaration with one parameter to code: func Name(Var Type) Return {\n.
+// The function name, parameter variable, parameter type and return type are provided by a.
 func (code *Code) Func1(a *Func1Args) *Code {
+	// Return nil in case code is nil.
 	if code == nil {
 		return nil
 	}
+	// Return nil in case a is nil.
+	if a == nil {
+		return nil
+	}
+	// Add a function declaration with one parameter to code.
 	code.c += fmt.Sprintf("func %v(%v %v) %v {\n", a.Name, a.Var, a.Type, a.Return)
+	// Return code
 	return code
 }
 
@@ -218,17 +226,27 @@ func (code *Code) SelMethod(a *SelArgs) *Code {
 	return code
 }
 
-// Expression
+// IfArgs contains the left and right hand side expressions and the operator to generate
+// an if statement with If.
 type IfArgs struct {
 	ExprLeft, ExprRight, Operator string
 }
 
-// If statement
+// If adds an if statement to code: if ExprLeft Operator ExprRight {\n.
+// The left and right hand side expressions and the operator are provided by a.
+// It returns nil if a is nil.
 func (code *Code) If(a *IfArgs) *Code {
+	// Return nil in case code is nil
 	if code == nil {
 		return nil
 	}
+	// Return nil in case a is nil
+	if a == nil {
+		return nil
+	}
+	// Add an if statement to code
 	code.c += fmt.Sprintf("if %v %v %v {\n", a.ExprLeft, a.Operator, a.ExprRight)
+	// Return code
 	return code
 }
 
@@ -236,30 +254,44 @@ type IfErrArgs struct {
 	Method, Operator string
 }
 
-// If statement for error handling using a simple statement
+// IfErr adds an if statement for error handling to code: if err := Method; err Operator nil {\n.
+// The method and operator are provided by a. It returns nil if a is nil.
 func (code *Code) IfErr(a *IfErrArgs) *Code {
+	// Return nil in case code is nil
 	if code == nil {
 		return nil
 	}
+	// Return nil in case a is nil
+	if a == nil {
+		return nil
+	}
+	// Add an if statement for error handling to code
 	code.c += fmt.Sprintf("if err := %v; err %v nil {\n", a.Method, a.Operator)
+	// Return code
 	return code
 }
 
-// Return
+// Return adds the return statement to code: return . It returns nil if code is nil.
 func (code *Code) Return() *Code {
+	// Return nil in case code is nil
 	if code == nil {
 		return nil
 	}
+	// Add the return statement to code
 	code.c += "return "
+	// Return code
 	return code
 }
 
-// Address operator
+// Addr adds an address operator to code: &. It returns nil if code is nil.
 func (code *Code) Addr() *Code {
+	// Return nil in case code is nil
 	if code == nil {
 		return nil
 	}
+	// Add an address operator to code
 	code.c += "&"
+	// Return code
 	return code
 }
 
@@ -275,25 +307,40 @@ func (code *Code) Ident(n string) *Code {
 	return code
 }
 
+// AssignmentArgs contains the left and right hand side expressions
+// to generate an assignment with Assignment
 type AssignmentArgs struct {
 	ExprLeft, ExprRight string
 }
 
-// Assignment
+// Assignment adds an assignment to code: ExprLeft = ExprRight.
+// The left and right hand side expressions are provided by a.
+// It returns nil if code is nil.
 func (code *Code) Assignment(a *AssignmentArgs) *Code {
+	// Return nil in case code is nil
 	if code == nil {
 		return nil
 	}
+	// Return nil in case a is nil
+	if a == nil {
+		return nil
+	}
+	// Add an assignment to code
 	code.c += fmt.Sprintf("%v = %v", a.ExprLeft, a.ExprRight)
+	// Return code
 	return code
 }
 
-// Composite Literal
+// CompositeLit adds the beginning of a composite literal to code: LiteralType{\n.
+// The literal type is provided by argument LiteralType.
 func (code *Code) CompositeLit(LiteralType string) *Code {
+	// Return nil in case code is nil
 	if code == nil {
 		return nil
 	}
+	// Add the beginning of a composite literal to code
 	code.c += fmt.Sprintf("%v{", LiteralType)
+	// Return code
 	return code
 }
 

@@ -1,0 +1,17 @@
+type foo struct {
+	A int
+	B string
+}
+
+func Example(x int) error {
+	if err := doSomething(); err != nil {
+		return err
+	}
+	if x > 10 {
+		foo{A: 1,
+			B: "hello",
+		}
+	}
+	return nil
+}
+

@@ -1,0 +1,5 @@
+func brethil(fangorn int) {
+	fangorn2 := 9
+	fangorn = fangorn2
+}
+

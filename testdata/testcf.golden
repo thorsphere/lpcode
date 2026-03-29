@@ -1,0 +1,23 @@
+// Copyright (c) 2023-2026 thorsphere.
+// All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
+// that can be found in the LICENSE file.
+package testcf
+
+type foo struct {
+	A int
+	B string
+}
+
+func Example(x int) error {
+	if err := doSomething(); err != nil {
+		return err
+	}
+	if x > 10 {
+		foo{A: 1,
+			B: "hello",
+		}
+	}
+	return nil
+}
+
+// ---------------------

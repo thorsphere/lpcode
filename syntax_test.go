@@ -1,15 +1,16 @@
-// Copyright (c) 2023 thorstenrie.
+// Copyright (c) 2023-2026 thorsphere.
 // All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
 // that can be found in the LICENSE file.
 package lpcode_test
 
 // Import Go standard library package testing as well as lpcode, tserr and tsfio
 import (
+	"fmt"
 	"testing" // testing
 
-	"github.com/thorstenrie/lpcode" // lpcode
-	"github.com/thorstenrie/tserr"  // tserr
-	"github.com/thorstenrie/tsfio"  // tsfio
+	"github.com/thorsphere/lpcode" // lpcode
+	"github.com/thorsphere/tserr"  // tserr
+	"github.com/thorsphere/tsfio"  // tsfio
 )
 
 var (
@@ -20,6 +21,7 @@ var (
 	testCall   string = "brethil"    // test function call
 	testStruct string = "mirkwood"   // test struct
 	testType   string = "int"        // test type
+	testInt    int    = 9            // test integer
 	// test comment
 	testComment string = "Lorem ipsum dolor sit amet, " +
 		"consectetur adipisici elit, " +
@@ -106,14 +108,86 @@ func TestCall(t *testing.T) {
 	}
 }
 
+// TestAssignment tests retrieved source code using an assignment from Assignment,
+// identifiers from Ident and a short variable declaration with ShortVarDecl.
+// The test fails if the retrieved source code does not match the contents of the golden file.
+func TestAssignment(t *testing.T) {
+	// Create a new identifier by appending "2" to the test identifier
+	testIdent2 := testIdent + "2"
+	// Retrieve the function declaration with Func1.
+	c := lpcode.NewCode().Func1(&lpcode.Func1Args{Name: testCall, Var: testIdent, Type: testType, Return: ""})
+	// Retrieve the short variable declaration with ShortVarDecl
+	c.ShortVarDecl(&lpcode.ShortVarDeclArgs{Ident: testIdent2, Expr: fmt.Sprintf("%v", testInt)})
+	// Retrieve the assignment with Assignment
+	c.Assignment(&lpcode.AssignmentArgs{ExprLeft: testIdent, ExprRight: testIdent2}).FuncEnd()
+	// Format the retrieved source code.
+	if e := c.Format(); e != nil {
+		// The test fails if Format returns an error.
+		t.Error(e)
+	}
+	// Evaluate the retrieved source code
+	if e := evalCode(c, "assignment"); e != nil {
+		// The test fails if the generated source code does not match the contents of the golden file
+		t.Error(e)
+	}
+}
+
 // TestCall2 tests retrieved source code using a function call from Call, identifiers from Ident and an identifier list with a line ending with Listln.
 // The test fails if the retrieved source code does not match the contents of the golden file.
 func TestCall2(t *testing.T) {
-	// Retrieve the function call from Call, identifiers from Ident and an identifier list with a line ending with Listln
+	// Retrieve the function call from Call, identifiers from Ident and
+	// an identifier list with a line ending with Listln
 	c := lpcode.NewCode().Call(testCall).Ident(testIdent).Listln().Ident(testKey).Listln().ParamEndln()
 	// Evaluate the retrieved source code
 	if e := evalCode(c, "call2"); e != nil {
-		// The test fails if the generated source code does not match the contents of the golden file
+		// The test fails if the generated source code does not
+		// match the contents of the golden file.
+		t.Error(e)
+	}
+}
+
+// TestFunc1 tests retrieved source code using a function declaration with Func1,
+// a return statement with Return, an identifier with Ident and a function ending with FuncEnd.
+// The test fails if the retrieved source code does not match the contents of the golden file.
+func TestFunc1(t *testing.T) {
+	// Retrieve the function declaration with Func1, a return statement with Return,
+	// an identifier with Ident and a function ending with FuncEnd.
+	c := lpcode.NewCode().Func1(&lpcode.Func1Args{
+		Name:   testCall,
+		Var:    testIdent,
+		Type:   testType,
+		Return: "*" + testType,
+	}).Return().Addr().Ident(testIdent).FuncEnd()
+	// Format the retrieved source code.
+	if e := c.Format(); e != nil {
+		// The test fails if Format returns an error.
+		t.Error(e)
+	}
+	// Evaluate the retrieved source code
+	if e := evalCode(c, "func1"); e != nil {
+		// The test fails if the generated source code does not
+		// match the contents of the golden file.
+		t.Error(e)
+	}
+}
+
+// TestIfErr tests retrieved source code using an type struct declaration with TypeStruct,
+// a variable specification with VarSpec, a function declaration with Func1,
+// a composite literal with CompositeLit, a keyed element with KeyedElement,
+// a return statement with Return, an identifier with Ident,
+// a block ending with BlockEnd, a function ending with FuncEnd,
+// an if statement with If and an if statement for error handling with IfErr.
+// The test fails if the retrieved source code does not match the contents of the golden file.
+func TestIfErr(t *testing.T) {
+	// Retrieve a new code.
+	c := testIfErr()
+	// Format the retrieved source code.
+	if e := c.Format(); e != nil {
+		// The test fails if Format returns an error.
+		t.Error(e)
+	}
+	// Evaluate the retrieved source code
+	if e := evalCode(c, "iferr"); e != nil {
 		t.Error(e)
 	}
 }
@@ -140,7 +214,7 @@ func TestTestVariablesEmpty(t *testing.T) {
 	c := lpcode.NewCode().Testvariables(vars)
 	// The test fails in case the returned string is not empty
 	if c.String() != "" {
-		t.Error(tserr.NotEmpty("code"))
+		t.Error(tserr.Empty("code"))
 	}
 }
 

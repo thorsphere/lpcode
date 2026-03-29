@@ -1,4 +1,4 @@
-// Copyright (c) 2023 thorstenrie.
+// Copyright (c) 2023-2026 thorsphere.
 // All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
 // that can be found in the LICENSE file.
 package lpcode_test
@@ -7,8 +7,8 @@ package lpcode_test
 import (
 	"testing" // testing
 
-	"github.com/thorstenrie/lpcode" // lpcode
-	"github.com/thorstenrie/tserr"  // tserr
+	"github.com/thorsphere/lpcode" // lpcode
+	"github.com/thorsphere/tserr"  // tserr
 )
 
 // TestTestVariablesNil tests Testvariables to return nil in case
@@ -18,7 +18,7 @@ func TestTestVariablesNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if Testvariables does not return nil.
 	if n := c.Testvariables(&lpcode.Testvars{}); n != nil {
-		t.Error(tserr.NotNil("Testvariables"))
+		t.Error(tserr.NilExpected("Testvariables"))
 	}
 }
 
@@ -29,7 +29,7 @@ func TestShortVarDeclNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if ShortVarDecl does not return nil.
 	if n := c.ShortVarDecl(&lpcode.ShortVarDeclArgs{}); n != nil {
-		t.Error(tserr.NotNil("ShortVarDecl"))
+		t.Error(tserr.NilExpected("ShortVarDecl"))
 	}
 }
 
@@ -40,7 +40,7 @@ func TestIdentNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if Ident does not return nil.
 	if n := c.Ident(""); n != nil {
-		t.Error(tserr.NotNil("Ident"))
+		t.Error(tserr.NilExpected("Ident"))
 	}
 }
 
@@ -51,7 +51,7 @@ func TestListNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if List does not return nil.
 	if n := c.List(); n != nil {
-		t.Error(tserr.NotNil("List"))
+		t.Error(tserr.NilExpected("List"))
 	}
 }
 
@@ -62,7 +62,7 @@ func TestListlnNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if Listln does not return nil.
 	if n := c.Listln(); n != nil {
-		t.Error(tserr.NotNil("Listln"))
+		t.Error(tserr.NilExpected("Listln"))
 	}
 }
 
@@ -73,7 +73,7 @@ func TestParamEndlnNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if ParamEndln does not return nil.
 	if n := c.ParamEndln(); n != nil {
-		t.Error(tserr.NotNil("ParamEndln"))
+		t.Error(tserr.NilExpected("ParamEndln"))
 	}
 }
 
@@ -84,7 +84,7 @@ func TestCallNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if Call does not return nil.
 	if n := c.Call(""); n != nil {
-		t.Error(tserr.NotNil("Call"))
+		t.Error(tserr.NilExpected("Call"))
 	}
 }
 
@@ -95,7 +95,7 @@ func TestLineCommentNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if LineComment does not return nil.
 	if n := c.LineComment(""); n != nil {
-		t.Error(tserr.NotNil("LineComment"))
+		t.Error(tserr.NilExpected("LineComment"))
 	}
 }
 
@@ -106,7 +106,7 @@ func TestTypeStructNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if TypeStruct does not return nil.
 	if n := c.TypeStruct(""); n != nil {
-		t.Error(tserr.NotNil("TypeStruct"))
+		t.Error(tserr.NilExpected("TypeStruct"))
 	}
 }
 
@@ -117,7 +117,7 @@ func TestStringNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if Ident does not return an empty string.
 	if n := c.String(); n != "" {
-		t.Error(tserr.NotNil("String"))
+		t.Error(tserr.NotEqual(&tserr.NotEqualArgs{X: n, Y: ""}))
 	}
 }
 
@@ -128,7 +128,7 @@ func TestParamEndNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if ParamEnd does not return nil.
 	if n := c.ParamEnd(); n != nil {
-		t.Error(tserr.NotNil("ParamEnd"))
+		t.Error(tserr.NilExpected("ParamEnd"))
 	}
 }
 
@@ -139,7 +139,7 @@ func TestFuncEndNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if FuncEnd does not return nil.
 	if n := c.FuncEnd(); n != nil {
-		t.Error(tserr.NotNil("FuncEnd"))
+		t.Error(tserr.NilExpected("FuncEnd"))
 	}
 }
 
@@ -150,7 +150,7 @@ func TestBlockEndNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if BlockEnd does not return nil.
 	if n := c.BlockEnd(); n != nil {
-		t.Error(tserr.NotNil("BlockEnd"))
+		t.Error(tserr.NilExpected("BlockEnd"))
 	}
 }
 
@@ -161,7 +161,7 @@ func TestKeyedElementNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if KeyedElement does not return nil.
 	if n := c.KeyedElement(&lpcode.KeyedElementArgs{}); n != nil {
-		t.Error(tserr.NotNil("KeyedElement"))
+		t.Error(tserr.NilExpected("KeyedElement"))
 	}
 }
 
@@ -172,7 +172,7 @@ func TestVarSpecNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if VarSpec does not return nil.
 	if n := c.VarSpec(&lpcode.VarSpecArgs{}); n != nil {
-		t.Error(tserr.NotNil("VarSpec"))
+		t.Error(tserr.NilExpected("VarSpec"))
 	}
 }
 
@@ -183,7 +183,7 @@ func TestSelFieldNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if SelField does not return nil.
 	if n := c.SelField(&lpcode.SelArgs{}); n != nil {
-		t.Error(tserr.NotNil("SelField"))
+		t.Error(tserr.NilExpected("SelField"))
 	}
 }
 
@@ -194,7 +194,7 @@ func TestSelMethodNil(t *testing.T) {
 	var c *lpcode.Code = nil
 	// The test fails if SelField does not return nil.
 	if n := c.SelMethod(&lpcode.SelArgs{}); n != nil {
-		t.Error(tserr.NotNil("SelMethod"))
+		t.Error(tserr.NilExpected("SelMethod"))
 	}
 }
 
@@ -203,7 +203,7 @@ func TestSelMethodNil(t *testing.T) {
 func TestTestVariablesNil2(t *testing.T) {
 	// The test fails if Testvariables does not return nil.
 	if n := lpcode.NewCode().Testvariables(nil); n != nil {
-		t.Error(tserr.NotNil("Testvariables"))
+		t.Error(tserr.NilExpected("Testvariables"))
 	}
 }
 
@@ -212,7 +212,7 @@ func TestTestVariablesNil2(t *testing.T) {
 func TestShortVarDeclNil2(t *testing.T) {
 	// The test fails if ShortVarDecl does not return nil.
 	if n := lpcode.NewCode().ShortVarDecl(nil); n != nil {
-		t.Error(tserr.NotNil("ShortVarDecl"))
+		t.Error(tserr.NilExpected("ShortVarDecl"))
 	}
 }
 
@@ -221,7 +221,7 @@ func TestShortVarDeclNil2(t *testing.T) {
 func TestSelFieldNil2(t *testing.T) {
 	// The test fails if SelField does not return nil.
 	if n := lpcode.NewCode().SelField(nil); n != nil {
-		t.Error(tserr.NotNil("SelField"))
+		t.Error(tserr.NilExpected("SelField"))
 	}
 }
 
@@ -230,7 +230,7 @@ func TestSelFieldNil2(t *testing.T) {
 func TestSelMethodNil2(t *testing.T) {
 	// The test fails if SelMethod does not return nil.
 	if n := lpcode.NewCode().SelMethod(nil); n != nil {
-		t.Error(tserr.NotNil("SelMethod"))
+		t.Error(tserr.NilExpected("SelMethod"))
 	}
 }
 
@@ -239,7 +239,120 @@ func TestSelMethodNil2(t *testing.T) {
 func TestKeyedElementNil2(t *testing.T) {
 	// The test fails if KeyedElement does not return nil.
 	if n := lpcode.NewCode().KeyedElement(nil); n != nil {
-		t.Error(tserr.NotNil("KeyedElement"))
+		t.Error(tserr.NilExpected("KeyedElement"))
+	}
+}
+
+// TestFunc1 tests Func1 to return nil in case
+// a is nil. The test fails if Func1 does not return nil.
+func TestFunc1Nil(t *testing.T) {
+	// The test fails if Func1 does not return nil.
+	if n := lpcode.NewCode().Func1(nil); n != nil {
+		t.Error(tserr.NilExpected("Func1"))
+	}
+}
+
+// TestFunc1Nil2 tests Func1 to return nil in case
+// *Code is nil. The test fails if Func1 does not return nil.
+func TestFunc1Nil2(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if Func1 does not return nil.
+	if n := c.Func1(&lpcode.Func1Args{}); n != nil {
+		t.Error(tserr.NilExpected("Func1"))
+	}
+}
+
+// TestAssignmentNil tests Assignment to return nil in case
+// *Code is nil. The test fails if Assignment does not return nil.
+func TestAssignmentNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if Assignment does not return nil in case code is nil.
+	if n := c.Assignment(&lpcode.AssignmentArgs{}); n != nil {
+		t.Error(tserr.NilExpected("Assignment"))
+	}
+}
+
+// TestAssignmentNil2 tests Assignment to return nil in case
+// a is nil. The test fails if Assignment does not return nil in case a is nil.
+func TestAssignmentNil2(t *testing.T) {
+	// The test fails if Assignment does not return nil in case a is nil.
+	if n := lpcode.NewCode().Assignment(nil); n != nil {
+		t.Error(tserr.NilExpected("Assignment"))
+	}
+}
+
+// TestReturnNil tests Return to return nil in case
+// *Code is nil. The test fails if Return does not return nil.
+func TestReturnNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if Return does not return nil.
+	if n := c.Return(); n != nil {
+		t.Error(tserr.NilExpected("Return"))
+	}
+}
+
+// TestIfNil tests If to return an empty string in case
+// *Code is nil. The test fails if Code does not return nil.
+func TestIfNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if If does not return nil.
+	if n := c.If(&lpcode.IfArgs{}); n != nil {
+		t.Error(tserr.NilExpected("If"))
+	}
+}
+
+// TestIfNil2 tests If to return nil in case
+// a is nil. The test fails if If does not return nil.
+func TestIfNil2(t *testing.T) {
+	// The test fails if If does not return nil.
+	if n := lpcode.NewCode().If(nil); n != nil {
+		t.Error(tserr.NilExpected("If"))
+	}
+}
+
+// TestIfErrNil2 tests If to return nil in case
+// a is nil. The test fails if If does not return nil.
+func TestIfErrNil2(t *testing.T) {
+	// The test fails if If does not return nil.
+	if n := lpcode.NewCode().IfErr(nil); n != nil {
+		t.Error(tserr.NilExpected("IfErr"))
+	}
+}
+
+// TestIfErrNil tests IfErr to return nil in case
+// *Code is nil. The test fails if IfErr does not return nil.
+func TestIfErrNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if IfErr does not return nil.
+	if n := c.IfErr(&lpcode.IfErrArgs{}); n != nil {
+		t.Error(tserr.NilExpected("IfErr"))
+	}
+}
+
+// TestCompositeLitNil tests CompositeLit to return nil in case
+// *Code is nil. The test fails if CompositeLit does not return nil.
+func TestCompositeLitNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if CompositeLit does not return nil.
+	if n := c.CompositeLit(""); n != nil {
+		t.Error(tserr.NilExpected("CompositeLit"))
+	}
+}
+
+// TestAddrNil tests Addr to return nil in case
+// *Code is nil. The test fails if Addr does not return nil.
+func TestAddrNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Code = nil
+	// The test fails if Addr does not return nil.
+	if n := c.Addr(); n != nil {
+		t.Error(tserr.NilExpected("Addr"))
 	}
 }
 
