@@ -80,6 +80,55 @@ func (code *Code) String() string
 
 ## Example
 
+```go
+package main
+
+import (
+	"fmt"
+
+	"github.com/thorsphere/lpcode"
+)
+
+func main() {
+	c := lpcode.NewCode().
+		TypeStruct("foo").
+		VarSpec(&lpcode.VarSpecArgs{Ident: "A", Type: "int"}).
+		VarSpec(&lpcode.VarSpecArgs{Ident: "B", Type: "string"}).BlockEnd().
+		Func1(&lpcode.Func1Args{Name: "Example", Var: "x", Type: "int", Return: "error"}).
+		IfErr(&lpcode.IfErrArgs{Method: "doSomething()", Operator: "!="}).Return().Ident("err").BlockEnd().
+		If(&lpcode.IfArgs{ExprLeft: "x", Operator: ">", ExprRight: "10"}).
+		CompositeLit("foo").
+		KeyedElement(&lpcode.KeyedElementArgs{Key: "A", Elem: "1"}).
+		KeyedElement(&lpcode.KeyedElementArgs{Key: `B`, Elem: `"hello"`}).
+		BlockEnd().BlockEnd().Return().Ident("nil").FuncEnd()
+	c.Format()
+	fmt.Print(c)
+}
+```
+
+[Run in Go Playground](https://go.dev/play/p/pR7uG4qtamD)
+
+Output:
+
+```go
+type foo struct {
+	A int
+	B string
+}
+
+func Example(x int) error {
+	if err := doSomething(); err != nil {
+		return err
+	}
+	if x > 10 {
+		foo{A: 1,
+			B: "hello",
+		}
+	}
+	return nil
+}
+```
+
 ## Links
 
 [Godoc](https://pkg.go.dev/github.com/thorsphere/lpcode)
