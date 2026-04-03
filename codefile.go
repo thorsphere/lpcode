@@ -22,6 +22,7 @@ package lpcode
 
 // Import standard library packages, tserr and tsfio.
 import (
+	"fmt"
 	"go/format" // format
 
 	"github.com/thorsphere/tserr" // tserr
@@ -69,6 +70,10 @@ func (cf *Codefile) Filepath() tsfio.Filename {
 }
 
 // StartFile starts the code file by resetting the file and appending the header file.
+// It checks if the header file exists in the codefile path.
+// If it does not exist in the codefile path, it checks if it exists in the current directory.
+// If the header file does not exist in either location, it returns an error.
+// Finally, it appends the header file to the code file using tsfio.AppendFile
 // It returns an error if any occurs during the process otherwise nil.
 func (cf *Codefile) StartFile() error {
 	// Return an error if the Codefile is nil.
@@ -79,8 +84,13 @@ func (cf *Codefile) StartFile() error {
 	if e := tsfio.ResetFile(cf.fp); e != nil {
 		return tserr.Op(&tserr.OpArgs{Op: "ResetFile", Fn: string(cf.fp), Err: e})
 	}
-	// Append the header file suffix to  the code filename.
-	fh := cf.fp + headerSuffix
+
+	// Find the header file using the findFile method. If an error occurs, return an error.
+	fh, err := cf.findFile(headerSuffix)
+	if err != nil {
+		return tserr.Op(&tserr.OpArgs{Op: "findFile", Fn: string(cf.fn + headerSuffix), Err: err})
+	}
+
 	// Append the header file to the code file using tsfio.AppendFile.
 	if e := tsfio.AppendFile(&tsfio.Append{FileA: cf.fp, FileI: fh}); e != nil {
 		// If an error occurs, return an error.
@@ -113,8 +123,13 @@ func (cf *Codefile) FinishFile() error {
 	if cf == nil {
 		return tserr.NilPtr()
 	}
-	// Append the footer file suffix to the code filename.
-	fe := cf.fp + footerSuffix
+
+	// Find the footer file using the findFile method. If an error occurs, return an error.
+	fe, err := cf.findFile(footerSuffix)
+	if err != nil {
+		return tserr.Op(&tserr.OpArgs{Op: "findFile", Fn: string(cf.fn + footerSuffix), Err: err})
+	}
+
 	// Append the footer file to the code file using tsfio.AppendFile.
 	if e := tsfio.AppendFile(&tsfio.Append{FileA: cf.fp, FileI: fe}); e != nil {
 		// If an error occurs, return an error.
@@ -127,6 +142,51 @@ func (cf *Codefile) FinishFile() error {
 	}
 	// Return nil if the file is finished successfully.
 	return nil
+}
+
+// findFile checks if a file with the given suffix exists in the codefile path or in the current directory.
+// It returns the file path of the found file and an error if any occurs during the process otherwise nil.
+func (cf *Codefile) findFile(suffix tsfio.Filename) (tsfio.Filename, error) {
+	// Return an error if the Codefile is nil.
+	if cf == nil {
+		return "", tserr.NilPtr()
+	}
+
+	var (
+		exists bool  = false
+		e      error = nil
+	)
+
+	// Append the header file suffix to the codefile path.
+	fn := cf.fp + suffix
+
+	// Check if the header file exists in the codefile path using tsfio.ExistsFile.
+	if exists, e = tsfio.ExistsFile(fn); e != nil {
+		// Return an error if any error occurs during the check.
+		return "", tserr.Op(&tserr.OpArgs{Op: "ExistsFile", Fn: string(fn), Err: e})
+	}
+
+	// If it exists in the codefile path, return the file path.
+	if exists {
+		return fn, nil
+	}
+
+	// If it does not exist, append the header file suffix to the code filename.
+	fn = cf.fn + suffix
+
+	// Check if the header file exists in the current directory using tsfio.ExistsFile.
+	if exists, e = tsfio.ExistsFile(fn); e != nil {
+		// Return an error if any error occurs during the check.
+		return "", tserr.Op(&tserr.OpArgs{Op: "ExistsFile", Fn: string(fn), Err: e})
+	}
+
+	// If it does not exist in the current directory, return an error.
+	if !exists {
+		return "", tserr.NotExistent(fmt.Sprintf("%s or %s", string(fn), string(cf.fp+suffix)))
+	}
+
+	// If it exists in the current directory, return the file path.
+	return fn, nil
 }
 
 // String returns the contents of the code file as a string. It returns an empty string

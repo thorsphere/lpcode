@@ -30,7 +30,7 @@ In the Go app, the package is imported with
 import "github.com/thorsphere/lpcode"
 ```
 
-A Codefile represents a code file with an interface that provides methods to start, write and finish the code file. A utility for managing the lifecycle of code files.
+Codefile manages the lifecycle of a code file. StartFile initializes the file with a header template, WriteCode writes generated code content, and FinishFile appends a footer template and formats the result. Header and footer files (with suffixes ".header" and ".footer") are required and are searched for in the codefile directory or the current directory. Header and footer files allow you to include package declarations, imports, licenses, or other boilerplate that should appear at the beginning or end of generated files.
 
 ```go
 func NewCodefile(dn tsfio.Directory, fn tsfio.Filename) (*Codefile, error)
@@ -47,7 +47,7 @@ func (cf *Codefile) Filepath() tsfio.Filename
 func (cf *Codefile) String() string
 ```
 
-A Code contains the source code as string. A builder for constructing Go source code strings using method chaining. The Code type offers a range of methods for generating common Go syntax. The stored source code is amended by using its methods. The source code can be retrieved with String and formatted with Format.
+A Code contains source code as string. A builder for constructing Go source code strings using method chaining. The Code type offers a range of methods for generating common Go syntax. The stored source code is amended by calling its methods. The source code can be retrieved with String and formatted with Format.
 
 ```go
 func NewCode() *Code
@@ -128,6 +128,10 @@ func Example(x int) error {
 	return nil
 }
 ```
+
+## Limitations
+
+It does not perform syntax validation; the generated code should be validated by go/format or other tools.
 
 ## Links
 

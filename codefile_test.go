@@ -4,44 +4,53 @@
 package lpcode_test
 
 import (
-	"testing"
+	"testing" // testing
 
 	"github.com/thorsphere/lpcode" // lpcode
-	"github.com/thorsphere/tserr"
-	"github.com/thorsphere/tsfio" // tsfio
+	"github.com/thorsphere/tserr"  // tserr
+	"github.com/thorsphere/tsfio"  // tsfio
 )
 
-// TestCodeFile tests the functionality of the Codefile struct and its methods.
+// TestCodeFile1 tests the functionality of the Codefile struct and its methods.
 // It creates a temporary directory, copies the header and footer files to the temporary directory,
-// creates a new Codefile, starts the code file, writes a code snippet to the code file,
-// finishes the code file, evaluates the contents of the code file against
-// a golden file and finally removes the temporary directory and files.
-func TestCodeFile(t *testing.T) {
+// creates a new Codefile with the temporary directory and filename, starts the code file,
+// writes a code snippet to the code file, finishes the code file, evaluates the contents of the code file against
+// a golden file and finally removes the temporary directory and files. The test fails if any of these steps fail.
+func TestCodeFile1(t *testing.T) {
+	testCodeFile(t, true)
+}
+
+// TestCodeFile1 tests the functionality of the Codefile struct and its methods.
+// It creates a temporary directory, creates a new Codefile with the temporary directory and filename, starts the code file,
+// writes a code snippet to the code file, finishes the code file, evaluates the contents of the code file against
+// a golden file and finally removes the temporary directory and files. The test fails if any of these steps fail.
+func TestCodeFile2(t *testing.T) {
+	testCodeFile(t, false)
+}
+
+// TestFilepathNil tests the Filepath method of Codefile with a nil pointer.
+// The test fails if Filepath does not return an empty string in case the Codefile is nil.
+func TestFilepathNil(t *testing.T) {
+	// Declare c as type *Code and assign nil.
+	var c *lpcode.Codefile = nil
+	// The test fails if Filepath does not return an empty string.
+	if n := c.Filepath(); n != "" {
+		t.Error(tserr.Empty("Filepath"))
+	}
+}
+
+// testCodeFile tests the functionality of the Codefile struct and its methods.
+// It creates a temporary directory, copies the header and footer files to the temporary directory if tmp is true,
+// creates a new Codefile with the temporary directory and filename, starts the code file,
+// writes a code snippet to the code file, finishes the code file, evaluates the contents of the code file against
+// a golden file and finally removes the temporary directory and files. The test fails if any of these steps fail.
+func testCodeFile(t *testing.T, tmp bool) {
 	// Retrieve a temporary directory
 	dn := tmpDir(t)
-	// Retrieve path to header file
-	th := path(t, dn, testcfheader)
-	// Retrieve path to footer file
-	tf := path(t, dn, testcffooter)
 
-	// Copy the header file to the temporary directory
-	if err := tsfio.CopyFile(
-		&tsfio.Copy{
-			Src: path(t, testdatadir, testcfheader),
-			Dst: th,
-		}); err != nil {
-		// The test fails if the header file cannot be copied to the temporary directory
-		t.Fatal(err)
-	}
-
-	// Copy the footer file to the temporary directory
-	if err := tsfio.CopyFile(
-		&tsfio.Copy{
-			Src: path(t, testdatadir, testcffooter),
-			Dst: tf,
-		}); err != nil {
-		// The test fails if the header file cannot be copied to the temporary directory
-		t.Fatal(err)
+	// If tmp is true, copy the header file and the footer file to the temporary directory.
+	if tmp {
+		copyHF(t, dn)
 	}
 
 	// Create a new Codefile with the temporary directory and filename
@@ -76,21 +85,11 @@ func TestCodeFile(t *testing.T) {
 	}
 
 	// Remove the temporary directory, header file, footer file, code file and the temporary directory.
-	rm(t, th)
-	rm(t, tf)
+	if tmp {
+		rmHF(t, dn)
+	}
 	rm(t, cf.Filepath())
 	rm(t, dn)
-}
-
-// TestFilepathNil tests the Filepath method of Codefile with a nil pointer.
-// The test fails if Filepath does not return an empty string in case the Codefile is nil.
-func TestFilepathNil(t *testing.T) {
-	// Declare c as type *Code and assign nil.
-	var c *lpcode.Codefile = nil
-	// The test fails if Filepath does not return an empty string.
-	if n := c.Filepath(); n != "" {
-		t.Error(tserr.Empty("Filepath"))
-	}
 }
 
 // TestStringNil tests the String method of Codefile with a nil pointer.
