@@ -73,7 +73,7 @@ func (code *Code) Assignment(a *AssignmentArgs) *Code
 func (code *Code) CompositeLit(LiteralType string) *Code
 func (code *Code) ShortVarDecl(a *ShortVarDeclArgs) *Code
 func (code *Code) KeyedElement(a *KeyedElementArgs) *Code
-func (code *Code) TestVarDecl(t *Testvars) *Code
+func (code *Code) TestVarDecl(tv []TestVar) *Code
 func (code *Code) Format() error
 func (code *Code) String() string
 ```

@@ -17,7 +17,7 @@ func TestTestVariablesNil(t *testing.T) {
 	// Declare c as type *Code and assign nil
 	var c *lpcode.Code = nil
 	// The test fails if Testvariables does not return nil.
-	if n := c.TestVarDecl([]lpcode.Testvar{}); n != nil {
+	if n := c.TestVarDecl([]lpcode.TestVar{}); n != nil {
 		t.Error(tserr.NilExpected("Testvariables"))
 	}
 }

@@ -1,7 +1,8 @@
+// test variables
 var (
-	strFoo   string  = "foobar"                        //test variable type string
-	errFoo   error   = fmt.Errorf("an error occurred") //test variable type error
-	intFoo   int64   = 1234                            //test variable type int64
-	floatFoo float64 = 5678                            //test variable type float64
+	strFoo   string  = "foobar"                        // test variable of type string
+	errFoo   error   = fmt.Errorf("an error occurred") // test variable of type error
+	intFoo   int64   = 1234                            // test variable of type int64
+	floatFoo float64 = 5678                            // test variable of type float64
 )
 
