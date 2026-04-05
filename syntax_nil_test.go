@@ -17,7 +17,7 @@ func TestTestVariablesNil(t *testing.T) {
 	// Declare c as type *Code and assign nil
 	var c *lpcode.Code = nil
 	// The test fails if Testvariables does not return nil.
-	if n := c.Testvariables(&lpcode.Testvars{}); n != nil {
+	if n := c.TestvarDecl([]lpcode.Testvar{}); n != nil {
 		t.Error(tserr.NilExpected("Testvariables"))
 	}
 }
@@ -202,7 +202,7 @@ func TestSelMethodNil(t *testing.T) {
 // t is nil. The test fails if Testvariables does not return nil.
 func TestTestVariablesNil2(t *testing.T) {
 	// The test fails if Testvariables does not return nil.
-	if n := lpcode.NewCode().Testvariables(nil); n != nil {
+	if n := lpcode.NewCode().TestvarDecl(nil); n != nil {
 		t.Error(tserr.NilExpected("Testvariables"))
 	}
 }

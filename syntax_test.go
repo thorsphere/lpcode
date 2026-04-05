@@ -39,14 +39,14 @@ var (
 // the generated test variables do not match the contents of the golden file.
 func TestTestVariables(t *testing.T) {
 	// Configure Testvars to generate test variables of types string, error, int and float
-	vars := &lpcode.Testvars{
-		String: 1,
-		Error:  1,
-		Int:    1,
-		Float:  1,
+	vars := []lpcode.Testvar{
+		{T: "string", N: "strFoo", V: "\"foobar\""},
+		{T: "error", N: "errFoo", V: "fmt.Errorf(\"an error occurred\")"},
+		{T: "int64", N: "intFoo", V: "1234"},
+		{T: "float64", N: "floatFoo", V: "5678"},
 	}
 	// Retrieve test variables with Testvariables
-	c := lpcode.NewCode().Testvariables(vars)
+	c := lpcode.NewCode().TestvarDecl(vars)
 	// Evaluate the retrieved source code
 	if e := evalCode(c, "testvariables"); e != nil {
 		// The test fails if the retrieved code does not match the contents of the golden file
@@ -209,9 +209,9 @@ func TestLineComment(t *testing.T) {
 // not empty.
 func TestTestVariablesEmpty(t *testing.T) {
 	// // Configure Testvars to generate no test variables
-	vars := &lpcode.Testvars{}
+	vars := []lpcode.Testvar{}
 	// Retrieve test variables with Testvariables
-	c := lpcode.NewCode().Testvariables(vars)
+	c := lpcode.NewCode().TestvarDecl(vars)
 	// The test fails in case the returned string is not empty
 	if c.String() != "" {
 		t.Error(tserr.Empty("code"))

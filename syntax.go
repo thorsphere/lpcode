@@ -390,52 +390,6 @@ func (code *Code) KeyedElement(a *KeyedElementArgs) *Code {
 	return code
 }
 
-// Testvars contains the configuration for the generation of test variables with Testvariables
-// A test variable is generated if the corresponding type is not equal to zero.
-type Testvars struct {
-	String, Error, Int, Float int
-}
-
-// Testvariables generates test variables for unit tests. The test variables are generated based
-// on t. A test variable is generated if the corresponding type in t is not equal to zero.
-// It returns nil if t is nil.
-func (code *Code) Testvariables(t *Testvars) *Code {
-	// Return nil in case code is nil
-	if code == nil {
-		return nil
-	}
-	// Return nil in case t is nil
-	if t == nil {
-		return nil
-	}
-	// Initialize text
-	text := ""
-	// Add a string test variable to text if String is not equal to zero
-	if t.String != 0 {
-		text += "strFoo string = \"foobar\" // test variable type string\n"
-	}
-	// Add an error test variable to text if Error is not equal to zero
-	if t.Error != 0 {
-		text += "errFoo error = fmt.Errorf(strFoo) // test variable type error\n"
-	}
-	// Add an integer test variable to text if Int is not equal to zero
-	if t.Int != 0 {
-		text += "intFoo int64 = 1234 // test variable type int64\n"
-	}
-	// Add a float test variable to text if Float is not equal to zero
-	if t.Float != 0 {
-		text += "floatFoo float64 = 1234 // test variable type float64\n"
-	}
-	// If test variables exist, add them to the variable declaration
-	if text != "" {
-		code.c += "var (\n"
-		code.c += text
-		code.c += ")\n\n"
-	}
-	// Return generated code
-	return code
-}
-
 // Format formats the source code in code in canonical gfmt style.
 // It uses Source from the go/format package. Format returns an error
 // if code is nil or if go/format returns an error.
