@@ -16,7 +16,7 @@ type Testvar struct {
 // It returns nil if code is nil or if tv is nil.
 // The generated variable declarations are added to code.
 // The test variables are generated based on the type, name and value specified in tv. If no test variables are generated, an empty string is returned. The generated code should be validated by go/format or other tools. The test variables are generated in a var block. Each test variable is declared with its name, type and value, followed by a comment indicating the type of the test variable. The generated code can be used for unit tests to provide consistent test variables across different test cases.
-func (code *Code) TestvarDecl(tv []Testvar) *Code {
+func (code *Code) TestVarDecl(tv []Testvar) *Code {
 	// Return nil in case code is nil
 	if code == nil {
 		return nil

@@ -46,7 +46,7 @@ func TestTestVariables(t *testing.T) {
 		{T: "float64", N: "floatFoo", V: "5678"},
 	}
 	// Retrieve test variables with Testvariables
-	c := lpcode.NewCode().TestvarDecl(vars)
+	c := lpcode.NewCode().TestVarDecl(vars)
 	// Evaluate the retrieved source code
 	if e := evalCode(c, "testvariables"); e != nil {
 		// The test fails if the retrieved code does not match the contents of the golden file
@@ -211,7 +211,7 @@ func TestTestVariablesEmpty(t *testing.T) {
 	// // Configure Testvars to generate no test variables
 	vars := []lpcode.Testvar{}
 	// Retrieve test variables with Testvariables
-	c := lpcode.NewCode().TestvarDecl(vars)
+	c := lpcode.NewCode().TestVarDecl(vars)
 	// The test fails in case the returned string is not empty
 	if c.String() != "" {
 		t.Error(tserr.Empty("code"))
