@@ -3,12 +3,14 @@
 // that can be found in the LICENSE file.
 package lpcode
 
+// Import Go standard library packages and tserr
 import (
 	"fmt" // fmt
 
 	"github.com/thorsphere/tserr" // tserr
 )
 
+// TestVar is a struct that represents a test variable with its type T, name N and value V.
 type TestVar struct {
 	T string // type of testvariable
 	N string // name of testvariable
