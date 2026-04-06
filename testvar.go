@@ -3,7 +3,11 @@
 // that can be found in the LICENSE file.
 package lpcode
 
-import "fmt"
+import (
+	"fmt" // fmt
+
+	"github.com/thorsphere/tserr" // tserr
+)
 
 type TestVar struct {
 	T string // type of testvariable
@@ -42,4 +46,26 @@ func (code *Code) TestVarDecl(tv []TestVar) *Code {
 	}
 	// Return generated code
 	return code
+}
+
+// findTestVar is a helper function that takes t as a string representing a type, iterates
+// through the array of TestVar structs tv, and checks if the type of any TestVar matches t.
+// It returns a pointer to the corresponding TestVar struct for that type.
+// It returns nil and an error if the type is not found in the predefined test cases
+// or if there is an issue with the input.
+func FindTestVar(t string, tv []TestVar) (*TestVar, error) {
+	// Return nil and an error in case tv is nil
+	if tv == nil {
+		return nil, tserr.NilPtr()
+	}
+	// Iterate over testvars and return the one that matches the type t
+	for _, v := range tv {
+		// Check if the type of the current TestVar matches t
+		if v.T == t {
+			// If a match is found, return a pointer to the corresponding TestVar struct
+			return &v, nil
+		}
+	}
+	// Return nil and an error if the type is not found in the predefined test variables
+	return nil, tserr.NotExistent(fmt.Sprintf("test variable of type %v", t))
 }

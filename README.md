@@ -73,9 +73,15 @@ func (code *Code) Assignment(a *AssignmentArgs) *Code
 func (code *Code) CompositeLit(LiteralType string) *Code
 func (code *Code) ShortVarDecl(a *ShortVarDeclArgs) *Code
 func (code *Code) KeyedElement(a *KeyedElementArgs) *Code
-func (code *Code) TestVarDecl(tv []TestVar) *Code
 func (code *Code) Format() error
 func (code *Code) String() string
+```
+
+The package includes support for generating test variable declarations through the TestVarDecl method. Test variables are predefined values with associated types and names that can be reused across multiple test cases to ensure consistency. The FindTestVar helper function allows you to retrieve a specific test variable by its type from an array of TestVar structs.
+
+```go
+func (code *Code) TestVarDecl(tv []TestVar) *Code
+func FindTestVar(t string, tv []TestVar) (*TestVar, error)
 ```
 
 ## Example
