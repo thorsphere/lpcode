@@ -1,21 +1,14 @@
 # lpcode
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/thorsphere/lpcode)](https://goreportcard.com/report/github.com/thorsphere/lpcode)
-[![CodeFactor](https://www.codefactor.io/repository/github/thorsphere/lpcode/badge)](https://www.codefactor.io/repository/github/thorsphere/lpcode)
-![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/lpcode)
-
 [![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/thorsphere/lpcode)](https://pkg.go.dev/mod/github.com/thorsphere/lpcode)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/thorsphere/lpcode)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/thorsphere/lpcode)
+![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/lpcode)
+[![CodeFactor](https://www.codefactor.io/repository/github/thorsphere/lpcode/badge)](https://www.codefactor.io/repository/github/thorsphere/lpcode)
+![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/lpcode)
 ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/thorsphere/lpcode)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/thorsphere/lpcode)
-![GitHub last commit](https://img.shields.io/github/last-commit/thorsphere/lpcode)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/thorsphere/lpcode)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thorsphere/lpcode)
-![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/lpcode)
-![GitHub](https://img.shields.io/github/license/thorsphere/lpcode)
-
-[Go](https://go.dev/) package for programmatic Go code generation that tries to keep it simple ([KISS principle](https://en.wikipedia.org/wiki/KISS_principle)). The package is designed primarily to support the [tserrgen](https://github.com/thorsphere/tserrgen) code generator.
+[Go](https://go.dev/) package for programmatic Go code generation that tries to keep it simple. The package is designed primarily to support the [tserrgen](https://github.com/thorsphere/tserrgen) code generator.
 
 - **Simple**: A simple and fluent API with method chaining
 - **Formatted**: Automatic gofmt integration for clean output
@@ -139,11 +132,28 @@ func Example(x int) error {
 
 It does not perform syntax validation; the generated code should be validated by go/format or other tools.
 
-## Links
+## Documentation & Resources
 
-[Godoc](https://pkg.go.dev/github.com/thorsphere/lpcode)
+- [Go Package Documentation](https://pkg.go.dev/github.com/thorsphere/lpcode) — Complete API reference
+- [Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Flpcode) — Dependency analysis
 
-[Go Report Card](https://goreportcard.com/report/github.com/thorsphere/lpcode)
+## ⚖️ License & Commercial Usage
 
-[Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Flpcode)
+Copyright (c) 2023-2026 thorsphere. All rights reserved.
 
+This project is licensed under the **Functional Source License v1.1 (FSL-1.1-ALv2)**. 
+
+* The use, modification, and redistribution of this Go package is completely free for private, educational, non-commercial, and internal purposes. 
+* If you are a company or institution looking to use this package in a commercial product, service, or business environment, you must secure a commercial license.
+* Each version of this software automatically converts to the fully open-source Apache License, Version 2.0 on the second anniversary of its release.
+
+For full details, please see the [LICENSE](LICENSE) file.
+
+### 💼 Commercial Licensing & Inquiries
+
+To purchase a commercial license or discuss support options, please reach out directly:
+
+* 📩 **Contact:** business at thorsphere dot com
+* 💬 **Response Time:** Usually within a couple of business days.
+
+*Please include your company name and a brief overview of your use case so I can provide the right licensing details.*
