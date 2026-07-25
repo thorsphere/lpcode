@@ -6,9 +6,8 @@
 ![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/lpcode)
 [![CodeFactor](https://www.codefactor.io/repository/github/thorsphere/lpcode/badge)](https://www.codefactor.io/repository/github/thorsphere/lpcode)
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/lpcode)
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/thorsphere/lpcode)
 
-[Go](https://go.dev/) package for programmatic Go code generation that tries to keep it simple. The package is designed primarily to support the [tserrgen](https://github.com/thorsphere/tserrgen) code generator.
+Go package for programmatic Go code generation that tries to keep it simple. The package is designed primarily to support the [tserr/gen](https://github.com/thorsphere/tserr/tree/main/gen) code generator.
 
 - **Simple**: A simple and fluent API with method chaining
 - **Formatted**: Automatic gofmt integration for clean output
@@ -147,7 +146,7 @@ This project is licensed under the **Functional Source License v1.1 (FSL-1.1-ALv
 * If you are a company or institution looking to use this package in a commercial product, service, or business environment, you must secure a commercial license.
 * Each version of this software automatically converts to the fully open-source Apache License, Version 2.0 on the second anniversary of its release.
 
-For full details, please see the [LICENSE](LICENSE) file.
+For full details, please see the [LICENSE](LICENSE.md) file.
 
 ### 💼 Commercial Licensing & Inquiries
 
